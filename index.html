@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>test-cors</title>
+    <link rel="stylesheet" href="styles/vendors/bootstrap.css">
+    <link rel="stylesheet" href="styles/default.css">
+</head>
+<body>
+    <div class="container-fluid center-block">
+        <h3 class="page-header">Check if CORS enabled on passed domain.</h3>
+        <form class="navbar-form navbar-left" id="form">
+            <div class="form-group">
+                <input id="domain" type="text" class="form-control" placeholder="Domain" />
+            </div>
+            <button type="submit" class="btn btn-warning">Check</button>
+        </form>
+        <pre id="result" class="container bg-info"></pre>
+    </div>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
