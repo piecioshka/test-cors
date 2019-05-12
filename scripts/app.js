@@ -9,50 +9,50 @@
     var $domain = $('#domain');
     var $result = $('#result');
 
-    var assert = function (cond, msg) {
+    function assert(cond, msg) {
         if (!cond) throw new Error(msg || 'AssertionError');
-    };
+    }
 
-    var pad = function (n) {
+    function pad(n) {
         assert(typeof n === 'number', 'Passed value is not a number');
         return (n < 10) ? '0' + n : n;
-    };
+    }
 
-    var time = function () {
+    function time() {
         var d = new Date();
         var h = d.getHours();
         var m = d.getMinutes();
         var s = d.getSeconds();
         var ml = d.getMilliseconds();
         return '[' + pad(h) + ':' + pad(m) + ':' + pad(s) + '.' + ml + ']';
-    };
+    }
 
-    var warn = function (msg) {
+    function warn(msg) {
         $result.innerHTML += time() + ' ' + '<span class="bg-warning">' + msg + "</span>\n";
         console.warn(msg);
-    };
+    }
 
-    var log = function (msg) {
+    function log(msg) {
         $result.innerHTML += time() + ' ' + msg + "\n";
         console.log(msg);
     };
 
-    var info = function (msg) {
+    function info(msg) {
         $result.innerHTML += time() + ' ' + '<span class="bg-success">' + msg + "</span>\n";
         console.info(msg);
-    };
+    }
 
-    var error = function (msg) {
+    function error(msg) {
         $result.innerHTML += time() + ' ' + '<span class="bg-danger">' + msg + "</span>\n";
         console.error(msg);
-    };
+    }
 
-    var clear = function () {
+    function clear() {
         $result.innerHTML = '';
         console.clear();
-    };
+    }
 
-    var checkConnection = function (domain) {
+    function checkConnection(domain) {
         assert(typeof domain === 'string', 'Passed value is not a string!');
         assert(isDomain(domain), 'Passed domain is not correct!');
 
@@ -79,35 +79,40 @@
         };
         xhr.send();
         log('Send request.');
-    };
-
-    var isDomain = function (string) {
-        return rDomain.test(string);
-    };
-
-    // Handle form.
-    $('#form').addEventListener('submit', function (evt) {
-        evt.preventDefault();
-        clear();
-        warn('Checking domain: "' + $domain.value + '"');
-        checkConnection($domain.value);
-    });
-
-    // Set focus() on input.
-    $domain.focus();
-
-    // Set global error handler.
-    window.onerror = function (msg, file, line) {
-        error(msg + ' ' + file + ':' + line);
-    };
-
-    // Set handle to hash change.
-    window.onhashchange = function () {
-        $domain.value = location.hash.substr(1);
-    };
-
-    // Get URL from hash.
-    if (location.hash) {
-        $domain.value = location.hash.substr(1);
     }
+
+    function isDomain(string) {
+        return rDomain.test(string);
+    }
+
+    function main() {
+        // Handle form.
+        $('#form').addEventListener('submit', function (evt) {
+            evt.preventDefault();
+            clear();
+            warn('Checking domain: "' + $domain.value + '"');
+            checkConnection($domain.value);
+        });
+
+        // Set focus() on input.
+        $domain.focus();
+
+        // Set global error handler.
+        window.onerror = function (msg, file, line) {
+            error(msg + ' ' + file + ':' + line);
+        };
+
+        // Set handle to hash change.
+        window.onhashchange = function () {
+            $domain.value = location.hash.substr(1);
+        };
+
+        // Get URL from hash.
+        if (location.hash) {
+            $domain.value = location.hash.substr(1);
+        }
+    }
+
+    // Go go go!!1
+    main();
 }());
