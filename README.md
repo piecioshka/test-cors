@@ -1,5 +1,5 @@
 # test-cors
 
-## Demo 🎊
+## Preview 🎊
 
 <https://piecioshka.github.io/test-cors/>
